@@ -2,5 +2,5 @@
     <h1>blog</h1 </x-layouts.app>
 
     @foreach ($posts as $post)
-        <h2> {{ $post['title'] }} </h2>
+        <h2> {{ $post->title }} </h2>
     @endforeach
