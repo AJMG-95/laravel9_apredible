@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Process;
+use App\Http\Requests\SavePostRequest;
 
 class PostController extends Controller
 {
@@ -25,32 +26,37 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('posts.create');
+        return view('posts.create', ['post' => new Post]);
     }
 
 
-    public function store(Request $request)
+    public function store(SavePostRequest $request)
     {
 
-        $request->validate([
+        /* $validated = $request->validate([
             'title' => ['required', 'min:5'],
             'body' => ['required']
-        ]/* , [
+        ] , [
             'title.required' => "El título del post es obligatorio",
             'title.min' => "El titulo del post requiere almenos 5 caracteres",
             'body.required' => "La descripción del post es obligatoria"
-        ] */);
+        ] ); */
 
-        $post = new Post;
-
+        /* $post = new Post;
         $post->title = $request->input('title');
         $post->body = $request->input('body');
+        $post->save(); */
 
-        $post->save();
+        /* Post::create([
+            'title' => $request->input('title'),
+            'body' => $request->input('body')
+        ]); */
 
-        session()->flash('status', 'New Post Created!');
+        /* Post::create($validated); */
 
-        return to_route('posts.index');
+        Post::create($request->validated());
+        /* session()->flash('status', 'New Post Created!'); */
+        return to_route('posts.index')->with('status', 'New Post Created!');
     }
 
 
@@ -60,21 +66,28 @@ class PostController extends Controller
     }
 
 
-    public function update(Request $request, Post $post)
+    public function update(SavePostRequest $request, Post $post)
     {
-        $request->validate([
+        /* $validated = $request->validate([
             'title' => ['required', 'min:5'],
             'body' => ['required']
-        ]);
+        ]); */
 
         /* $post = Post::find($post); */
-        $post->title = $request->input('title');
+
+        /* $post->title = $request->input('title');
         $post->body = $request->input('body');
+        $post->save(); */
 
-        $post->save();
+        /* $post->update([
+            'title' => $request->input('title'),
+            'body' => $request->input('body')
+        ]); */
 
-        session()->flash('status', 'Post Updated!');
+        /* $post->update($validated); */
 
-        return to_route('posts.show', $post);
+        $post->update($request->validated());
+        /* session()->flash('status', 'Post Updated!'); */
+        return to_route('posts.show', $post)->with('status', 'Post Updated!');
     }
 }
