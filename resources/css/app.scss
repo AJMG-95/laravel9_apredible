@@ -1,13 +1,4 @@
-$white: #ffffff;
+$body-bg: #444994;
+$primary: #999999;
 
-body {
-    background-color: darkred;
-
-    h1 {
-        coloe: $white;
-    }
-
-    a {
-        color: $white;
-    }
-}
+@import 'bootstrap/scss/bootstrap';
