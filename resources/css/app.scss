@@ -1,4 +1,12 @@
+/*
+Esto era de bootstrap:
+
 $body-bg: #444994;
 $primary: #999999;
 
 @import 'bootstrap/scss/bootstrap';
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
