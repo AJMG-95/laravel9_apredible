@@ -10,6 +10,14 @@ use App\Http\Requests\SavePostRequest;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        /* $this->middleware('auth', ['only' => ['create', 'edit',... ]]); */
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+
+    }
+
     public function index()
     {
         $posts = Post::get();
@@ -92,10 +100,9 @@ class PostController extends Controller
     }
 
 
-    public function destroy (Post $post)
+    public function destroy(Post $post)
     {
         $post->delete();
         return to_route('posts.index')->with('status', 'Post deleted');
     }
-
 }

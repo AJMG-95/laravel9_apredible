@@ -20,10 +20,15 @@ Route::delete('/blog/{post}', [PostController::class, 'destroy'])->name('posts.d
 Route::resource('blog', PostController::class, [
     'names' => 'posts',
     'parameters' => ['blog' => 'post']
-]);
+])/* ->middleware('auth') */;
 
 
 Route::view('/about', 'about')->name('about');
+
+
+Route::get('/login', function () {
+    return "Login page";
+})->name('login');
 
 /* Route::get('/', function () {
     return view('welcome');
